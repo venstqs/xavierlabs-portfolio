@@ -167,7 +167,7 @@ export function Footer() {
       <span className="footer-brand"><LogoMark size={20} /> XavierLabs</span>
       <span className="footer-motto">{PROFILE.motto}</span>
       <span className="footer-keys">Press <kbd>?</kbd> for keyboard shortcuts</span>
-      <a className="footer-build" href={__BUILD__.commit ? `https://github.com/venstqs/adrian-moral-portfolio/commit/${__BUILD__.commit}` : 'https://github.com/venstqs/adrian-moral-portfolio'} target="_blank" rel="noopener noreferrer" title="The exact commit this site was built from">
+      <a className="footer-build" href={__BUILD__.commit ? `https://github.com/venstqs/xavierlabs-portfolio/commit/${__BUILD__.commit}` : 'https://github.com/venstqs/xavierlabs-portfolio'} target="_blank" rel="noopener noreferrer" title="The exact commit this site was built from">
         build {__BUILD__.commit || 'local'} · {__BUILD__.date}
       </a>
       <span className="footer-year">© {new Date().getFullYear()}</span>
