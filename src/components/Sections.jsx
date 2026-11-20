@@ -11,6 +11,7 @@ import TextPressure from './rb/TextPressure/TextPressure';
 import FlowingMenu from './rb/FlowingMenu/FlowingMenu';
 import Magnet from './rb/Magnet/Magnet';
 import AnimatedContent from './rb/AnimatedContent/AnimatedContent';
+import ScrambledText from './rb/ScrambledText/ScrambledText';
 import { FOCUS, LABS, PROFILE, SOCIALS, TAGLINE } from '../data';
 import { LogoMark } from './Logo';
 import { ContributionGraph, useCopyEmail } from './ui';
@@ -79,11 +80,9 @@ export function About({ theme }) {
             I build for the edge of the stack: quantized models that run with no signal, sensor nodes wired to survive outside, and local AI agents that do the heavy lifting. If an idea only lives in a notebook, it isn’t finished yet.
           </ScrollReveal>
           <Reveal>
-            <p className="body">
-              Most of my work sits in the tight spots between hardware, on-device ML, and developer tooling—from ESP32 and
-              LoRaWAN boards to browser-based electronics labs and terminal research pipelines. Everything I ship for myself
-              lives under XavierLabs.
-            </p>
+            <ScrambledText className="body body-scramble" radius={90} duration={1} speed={0.5} scrambleChars=".:/01" intro={false} clickBurst={false}>
+              Most of my work sits in the tight spots between hardware, on-device ML, and developer tooling, from ESP32 and LoRaWAN boards to browser-based electronics labs and terminal research pipelines. Everything I ship for myself lives under XavierLabs.
+            </ScrambledText>
             <div className="glass-wrap">
               <GlassIcons items={FOCUS_ICONS} size={60} gap={44} columns={4} labels="always" theme={theme} color="graphite" tint={theme === 'dark' ? '#3a3a3a' : '#dcdcdc'} />
             </div>

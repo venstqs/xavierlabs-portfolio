@@ -24,7 +24,7 @@ export const BUILD_WORDS = ['machine learning', 'computer vision', 'AI agents', 
 export const TOOLS = ['Python', 'PyTorch', 'TensorFlow Lite', 'scikit-learn', 'OpenCV', 'MediaPipe', 'LiteLLM', 'Sentinel-1 / 2', 'FastAPI', 'TypeScript', 'React', 'React Native', 'C++', 'ESP32', 'Arduino', 'LoRaWAN'];
 
 // What I actually make: these rotate in the hero line "I build …".
-export const HERO_WORDS = ['flood maps from radar', 'AI that runs offline', 'LoRa sensor nodes', 'research agents'];
+export const HERO_WORDS = ['satellite data pipelines', 'AI that runs offline', 'LoRa sensor nodes', 'research agents'];
 
 // The old hero headline, now the About section's opening line.
 export const TAGLINE = 'On-device AI, low-power hardware, and tools built to run anywhere.';

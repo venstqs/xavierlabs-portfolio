@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { Command, Home, Mail, Moon, SquareTerminal, Sun, User } from 'lucide-react';
+import { Command, FlaskConical, Home, Mail, Moon, SquareTerminal, Sun, User } from 'lucide-react';
 import Hero from './components/Hero';
 import { About, Band, Contact, Footer } from './components/Sections';
 import GooeyNav from './components/rb/GooeyNav/GooeyNav';
 import { Logo } from './components/Logo';
 import Dock from './components/rb/Dock/Dock';
 import ClickSpark from './components/rb/ClickSpark/ClickSpark';
+import TargetCursor from './components/rb/TargetCursor/TargetCursor';
+import { Lab, Motto } from './components/Lab';
 import { CommandMenu, ScrollProgress, ShortcutsSheet, ToastProvider, useCopyEmail, useShortcuts } from './components/ui';
 import Terminal from './components/Terminal';
 
@@ -54,6 +56,7 @@ const GithubMark = () => (
 
 const NAV = [
   { label: 'About', href: '#about' },
+  { label: 'Lab', href: '#lab' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -81,7 +84,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('top');
   useEffect(() => {
-    const ids = ['top', 'about', 'contact'];
+    const ids = ['top', 'about', 'lab', 'contact'];
     const on = () => {
       setScrolled(window.scrollY > 8);
       const y = window.scrollY + window.innerHeight * 0.4;
@@ -100,6 +103,7 @@ export default function App() {
   const dockItems = [
     { label: 'Home', icon: <Home {...ic} />, onClick: () => go('top'), active: active === 'top' },
     { label: 'About', icon: <User {...ic} />, onClick: () => go('about'), active: active === 'about' },
+    { label: 'Lab', icon: <FlaskConical {...ic} />, onClick: () => go('lab'), active: active === 'lab' },
     { label: 'Contact', icon: <Mail {...ic} />, onClick: () => go('contact'), active: active === 'contact' },
     { label: 'GitHub', icon: <GithubMark />, onClick: () => window.open('https://github.com/venstqs', '_blank', 'noopener') },
     { label: dark ? 'Light mode' : 'Dark mode', icon: dark ? <Sun {...ic} /> : <Moon {...ic} />, onClick: toggleTheme },
@@ -130,6 +134,8 @@ export default function App() {
       <main>
         <About theme={theme} />
         <Band />
+        <Lab theme={theme} openTerminal={() => setTerm(true)} />
+        <Motto />
         <Contact theme={theme} />
       </main>
       <Footer />
@@ -138,6 +144,7 @@ export default function App() {
       <CommandMenu open={cmd} setOpen={setCmd} theme={theme} toggleTheme={toggleTheme} openShortcuts={() => setSheet(true)} openTerminal={() => setTerm(true)} />
       <ShortcutsSheet open={sheet} setOpen={setSheet} />
       <TerminalHost open={term} setOpen={setTerm} toggleTheme={toggleTheme} />
+      <TargetCursor targetSelector="a, button, [role='button'], .cursor-target" cursorColor="#ffffff" blendMode="difference" spinDuration={2.4} size={34} cornerSize={11} thickness={2} padding={7} clickEffect={false} />
     </ClickSpark>
     </ToastProvider>
   );

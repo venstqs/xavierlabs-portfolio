@@ -7,3 +7,8 @@ _archive
 .env
 .env.*
 github-profile
+
+# large media lives locally in brand/
+brand/covers/
+brand/video/
+brand/*.mp4

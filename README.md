@@ -25,7 +25,7 @@ One landing page, black and white, built to be explored with the keyboard as muc
 |---|---|
 | **Terminal** | Press <kbd>`</kbd> for a draggable macOS Terminal with a tiny shell: `whoami`, `ls`, `open github`, `neofetch`, `theme`, `email`. History with <kbd>↑</kbd> <kbd>↓</kbd>. |
 | **Command menu** | <kbd>Ctrl</kbd>/<kbd>⌘</kbd> <kbd>K</kbd> to jump anywhere, copy the email, switch theme or open a link. |
-| **Shortcuts** | <kbd>1</kbd>–<kbd>3</kbd> sections · <kbd>T</kbd> theme · <kbd>E</kbd> copy email · <kbd>?</kbd> all shortcuts. |
+| **Shortcuts** | <kbd>1</kbd>–<kbd>4</kbd> sections · <kbd>T</kbd> theme · <kbd>E</kbd> copy email · <kbd>?</kbd> all shortcuts. |
 | **Theme** | Light and dark, with a circular View Transitions reveal from wherever you clicked. Set before first paint, so no flash. |
 | **Live GitHub** | Contribution graph and latest public activity, fetched in the browser. Fails quietly when rate-limited. |
 | **Build stamp** | The footer links to the exact commit the deployed site was built from. |

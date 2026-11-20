@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowUpRight, Check, Copy, CornerDownLeft, Home, Keyboard, Mail, Moon, Search, Sparkles, SquareTerminal, Sun, User, X } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, CornerDownLeft, FlaskConical, Home, Keyboard, Mail, Moon, Search, Sparkles, SquareTerminal, Sun, User, X } from 'lucide-react';
 import { PROFILE, SOCIALS } from '../data';
 
 /* ── Toast ──────────────────────────────────────────────────────────────── */
@@ -67,6 +67,7 @@ export function CommandMenu({ open, setOpen, theme, toggleTheme, openShortcuts, 
   const actions = useMemo(() => [
     { group: 'Go to', label: 'Top', icon: Home, run: () => go('top') },
     { group: 'Go to', label: 'About', icon: User, run: () => go('about') },
+    { group: 'Go to', label: 'Lab', icon: FlaskConical, run: () => go('lab') },
     { group: 'Go to', label: 'Contact', icon: Mail, run: () => go('contact') },
     { group: 'Actions', label: 'Copy email address', icon: Copy, run: copyEmail },
     { group: 'Actions', label: 'Keyboard shortcuts', icon: Keyboard, run: () => openShortcuts?.() },
@@ -149,7 +150,7 @@ export function CommandMenu({ open, setOpen, theme, toggleTheme, openShortcuts, 
 }
 
 /* ── Keyboard shortcuts (press ?) ───────────────────────────────────────── */
-const SECTION_KEYS = [['1', 'top', 'Top'], ['2', 'about', 'About'], ['3', 'contact', 'Contact']];
+const SECTION_KEYS = [['1', 'top', 'Top'], ['2', 'about', 'About'], ['3', 'lab', 'Lab'], ['4', 'contact', 'Contact']];
 
 export function useShortcuts({ toggleTheme, openCmd, cmdOpen, setSheet, toggleTerm }) {
   const copyEmail = useCopyEmail();

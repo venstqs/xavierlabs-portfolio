@@ -29,7 +29,7 @@ export default function Hero({ theme }) {
         <div className="hero-copy">
 
           <SplitText
-            text="Builder and researcher, somewhere between science and tech."
+            text="I love computers, all the way down to the silicon."
             tag="h1"
             className="hero-title"
             textAlign="left"
