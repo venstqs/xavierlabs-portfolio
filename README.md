@@ -1,9 +1,11 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="brand/lockup-white-on-black.png">
-    <img src="brand/lockup-black-on-white.png" alt="XavierLabs" width="360">
+    <source media="(prefers-color-scheme: dark)" srcset="brand/mark-white-512.png">
+    <img src="brand/mark-black-512.png" alt="XavierLabs" width="88">
   </picture>
 </p>
+
+<h1 align="center">XavierLabs</h1>
 
 <p align="center">
   The personal site of <b>Adrian Xavier Moral</b>: builder and researcher, somewhere between science and tech.<br>
