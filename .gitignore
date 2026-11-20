@@ -6,3 +6,4 @@ _archive
 *.log
 .env
 .env.*
+github-profile

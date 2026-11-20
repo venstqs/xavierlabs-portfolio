@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { Command, Home, Mail, Moon, Sun, User } from 'lucide-react';
+import { Command, Home, Mail, Moon, SquareTerminal, Sun, User } from 'lucide-react';
 import Hero from './components/Hero';
 import { About, Band, Contact, Footer } from './components/Sections';
 import GooeyNav from './components/rb/GooeyNav/GooeyNav';
 import { Logo } from './components/Logo';
 import Dock from './components/rb/Dock/Dock';
 import ClickSpark from './components/rb/ClickSpark/ClickSpark';
-import { CommandMenu, ScrollProgress, ShortcutsSheet, ToastProvider, useShortcuts } from './components/ui';
+import { CommandMenu, ScrollProgress, ShortcutsSheet, ToastProvider, useCopyEmail, useShortcuts } from './components/ui';
+import Terminal from './components/Terminal';
 
 // Where the last click happened, so the theme reveal can start there.
 const lastPointer = { x: typeof window !== 'undefined' ? innerWidth / 2 : 0, y: typeof window !== 'undefined' ? innerHeight / 2 : 0 };
@@ -64,10 +65,18 @@ function Shortcuts(props) {
   return null;
 }
 
+// Terminal needs the toast context for the email command.
+function TerminalHost(props) {
+  const copyEmail = useCopyEmail();
+  return <Terminal {...props} copyEmail={copyEmail} />;
+}
+
 export default function App() {
   const [theme, toggleTheme] = useTheme();
   const [cmd, setCmd] = useState(false);
   const [sheet, setSheet] = useState(false);
+  const [term, setTerm] = useState(false);
+  const toggleTerm = useCallback(() => setTerm((v) => !v), []);
   const openCmd = useCallback(() => setCmd(true), []);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('top');
@@ -94,6 +103,7 @@ export default function App() {
     { label: 'Contact', icon: <Mail {...ic} />, onClick: () => go('contact'), active: active === 'contact' },
     { label: 'GitHub', icon: <GithubMark />, onClick: () => window.open('https://github.com/venstqs', '_blank', 'noopener') },
     { label: dark ? 'Light mode' : 'Dark mode', icon: dark ? <Sun {...ic} /> : <Moon {...ic} />, onClick: toggleTheme },
+    { label: 'Terminal', icon: <SquareTerminal {...ic} />, onClick: toggleTerm, active: term },
     { label: 'Command menu', icon: <Command {...ic} />, onClick: () => setCmd(true) },
   ];
 
@@ -123,10 +133,11 @@ export default function App() {
         <Contact theme={theme} />
       </main>
       <Footer />
-      <Dock items={small ? dockItems.filter((d) => !['GitHub', 'Command menu'].includes(d.label)) : dockItems} theme={theme} baseItemSize={small ? 40 : 44} magnification={small ? 40 : 64} panelHeight={small ? 54 : 60} accentColor={dark ? '#ffffff' : '#0a0a0a'} className="dock-fixed" />
-      <Shortcuts toggleTheme={toggleTheme} openCmd={openCmd} cmdOpen={cmd} setSheet={setSheet} />
-      <CommandMenu open={cmd} setOpen={setCmd} theme={theme} toggleTheme={toggleTheme} openShortcuts={() => setSheet(true)} />
+      <Dock items={small ? dockItems.filter((d) => !['GitHub', 'Command menu', 'Terminal'].includes(d.label)) : dockItems} theme={theme} baseItemSize={small ? 40 : 44} magnification={small ? 40 : 64} panelHeight={small ? 54 : 60} accentColor={dark ? '#ffffff' : '#0a0a0a'} className="dock-fixed" />
+      <Shortcuts toggleTheme={toggleTheme} openCmd={openCmd} cmdOpen={cmd || term} setSheet={setSheet} toggleTerm={toggleTerm} />
+      <CommandMenu open={cmd} setOpen={setCmd} theme={theme} toggleTheme={toggleTheme} openShortcuts={() => setSheet(true)} openTerminal={() => setTerm(true)} />
       <ShortcutsSheet open={sheet} setOpen={setSheet} />
+      <TerminalHost open={term} setOpen={setTerm} toggleTheme={toggleTheme} />
     </ClickSpark>
     </ToastProvider>
   );

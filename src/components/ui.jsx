@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowUpRight, Check, Copy, CornerDownLeft, Home, Keyboard, Mail, Moon, Search, Sparkles, Sun, User, X } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, CornerDownLeft, Home, Keyboard, Mail, Moon, Search, Sparkles, SquareTerminal, Sun, User, X } from 'lucide-react';
 import { PROFILE, SOCIALS } from '../data';
 
 /* ── Toast ──────────────────────────────────────────────────────────────── */
@@ -58,7 +58,7 @@ export function ScrollProgress() {
 /* ── Command menu (Ctrl/⌘ + K) ──────────────────────────────────────────── */
 const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
-export function CommandMenu({ open, setOpen, theme, toggleTheme, openShortcuts }) {
+export function CommandMenu({ open, setOpen, theme, toggleTheme, openShortcuts, openTerminal }) {
   const [q, setQ] = useState('');
   const [i, setI] = useState(0);
   const inputRef = useRef(null);
@@ -70,10 +70,11 @@ export function CommandMenu({ open, setOpen, theme, toggleTheme, openShortcuts }
     { group: 'Go to', label: 'Contact', icon: Mail, run: () => go('contact') },
     { group: 'Actions', label: 'Copy email address', icon: Copy, run: copyEmail },
     { group: 'Actions', label: 'Keyboard shortcuts', icon: Keyboard, run: () => openShortcuts?.() },
+    { group: 'Actions', label: 'Open Terminal', icon: SquareTerminal, run: () => openTerminal?.() },
     { group: 'Actions', label: 'Send an email', icon: Mail, run: () => { window.location.href = `mailto:${PROFILE.email}`; } },
     { group: 'Actions', label: theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode', icon: theme === 'dark' ? Sun : Moon, run: toggleTheme },
     ...SOCIALS.map((s) => ({ group: 'Links', label: `Open ${s.label}`, hint: s.handle, icon: ArrowUpRight, run: () => window.open(s.href, '_blank', 'noopener') })),
-  ], [copyEmail, theme, toggleTheme, openShortcuts]);
+  ], [copyEmail, theme, toggleTheme, openShortcuts, openTerminal]);
 
   const list = actions.filter((a) => (a.label + ' ' + (a.hint || '')).toLowerCase().includes(q.trim().toLowerCase()));
 
@@ -150,12 +151,13 @@ export function CommandMenu({ open, setOpen, theme, toggleTheme, openShortcuts }
 /* ── Keyboard shortcuts (press ?) ───────────────────────────────────────── */
 const SECTION_KEYS = [['1', 'top', 'Top'], ['2', 'about', 'About'], ['3', 'contact', 'Contact']];
 
-export function useShortcuts({ toggleTheme, openCmd, cmdOpen, setSheet }) {
+export function useShortcuts({ toggleTheme, openCmd, cmdOpen, setSheet, toggleTerm }) {
   const copyEmail = useCopyEmail();
   useEffect(() => {
     const onKey = (e) => {
-      if (e.metaKey || e.ctrlKey || e.altKey || cmdOpen) return;
       if (e.target.closest?.('input, textarea, [contenteditable="true"]')) return;
+      if (e.key === '`' && !e.metaKey && !e.ctrlKey) { e.preventDefault(); toggleTerm?.(); return; }
+      if (e.metaKey || e.ctrlKey || e.altKey || cmdOpen) return;
       if (e.key === '?') { e.preventDefault(); setSheet((v) => !v); return; }
       if (e.key === 'Escape') { setSheet(false); return; }
       const k = e.key.toLowerCase();
@@ -167,7 +169,7 @@ export function useShortcuts({ toggleTheme, openCmd, cmdOpen, setSheet }) {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [toggleTheme, openCmd, cmdOpen, copyEmail, setSheet]);
+  }, [toggleTheme, openCmd, cmdOpen, copyEmail, setSheet, toggleTerm]);
 }
 
 export function ShortcutsSheet({ open, setOpen }) {
@@ -177,6 +179,7 @@ export function ShortcutsSheet({ open, setOpen }) {
     [['/'], 'Command menu'],
     [['T'], 'Toggle black / white'],
     [['E'], 'Copy my email'],
+    [['`'], 'Toggle Terminal'],
     [['?'], 'Show this sheet'],
   ];
   return (

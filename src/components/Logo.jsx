@@ -16,7 +16,7 @@ export function LogoMark({ size = 28, title }) {
           <polygon points="2.4,36 11.6,36 31.41,4 22.21,4" fill="#000" />
         </mask>
       </defs>
-      <g transform="translate(1.7999999999999998 0) skewX(-10)">
+      <g transform="translate(6.33 0) skewX(-10)">
         <polygon points="30.0,36 36.0,36 16.19,4 10.19,4" fill="currentColor" mask={`url(#${mask})`} />
         <polygon points="4.0,36 10.0,36 29.81,4 23.81,4" fill="currentColor" />
         <rect x="12.076" y="25.8" width="15.848" height="4.0" fill="currentColor" />
